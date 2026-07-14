@@ -9,6 +9,7 @@ def analyze_ticket(title, details):
         recommended_steps =["Clear saved VPN credentials", 
         "restart VPN client",
         "Verify VPN account perissions"]
+        confidence = 0.85
 
     elif "password" in details.lower():
         category = "Account Access"
@@ -18,6 +19,7 @@ def analyze_ticket(title, details):
             "Check account lock status",
             "Attempt login again"
         ]
+        confidence = 0.90
 
     else:
         category = "General IT"
@@ -27,10 +29,12 @@ def analyze_ticket(title, details):
             "Reproduce the issue",
             "Check system logs"
         ]
+        confidence = 0.60
 
     return {
         "category": category,
         "ai_summary": ai_summary,
-        "recommended_steps": recommended_steps
+        "recommended_steps": recommended_steps,
+        "ai_confidence": confidence
     }
     

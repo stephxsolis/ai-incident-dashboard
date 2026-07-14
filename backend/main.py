@@ -39,8 +39,11 @@ class Ticket(BaseModel):
     status: str = "Open" #defaults to "open"
     created_at: str
     assigned_to: Optional[str] = None
+    
+    #AI-generated
     ai_summary: Optional[str] = None
     recommended_steps: Optional[list[str]] = None
+    ai_confidence: Optional[float] = None
 
 class StatusUpdate(BaseModel):
     status: str
@@ -75,6 +78,7 @@ def create_ticket(ticket: TicketCreate): #what the user sends
         category = ai_result["category"],
         ai_summary = ai_result["ai_summary"],
         recommended_steps = ai_result["recommended_steps"],
+        ai_confidence = ai_result["ai_confidence"],
         status = "Open",
         created_at = datetime.now().isoformat()
     )
