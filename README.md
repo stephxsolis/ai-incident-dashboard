@@ -40,7 +40,9 @@ The goal of this project is to explore how AI can improve IT support workflows b
 - SQLite
 
 ### AI
-- Claude API integration (in progress)
+- Modular AI analysis service
+- Current implementation uses rule-based classification
+- Claude API integration planned
 
 ## Architecture
 User
@@ -91,20 +93,21 @@ Create virtual environment:
 python -m venv venv
 source venv/bin/activate
 
-#Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-#Run FastAPI
+# Run FastAPI
 uvicorn main:app --reload
 ```
 ### Frontend
 ```bash
-#Install dependencies
+# Install dependencies
 npm install
 
-#Run development server
+# Run development server
 npm run dev
 ```
 
 ### Demo
 ![alt text](images/dashboard.png)
+
