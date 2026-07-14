@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
+from services.ai_service import analyze_ticket
 
 #create FastAPI app (backend server)
 app = FastAPI()
@@ -39,6 +40,7 @@ class Ticket(BaseModel):
     created_at: str
     assigned_to: Optional[str] = None
     ai_summary: Optional[str] = None
+    recommended_steps: Optional[list[str]] = None
 
 class StatusUpdate(BaseModel):
     status: str
@@ -60,11 +62,19 @@ def home():
 def create_ticket(ticket: TicketCreate): #what the user sends
     global ticket_id_counter #can modify counter
 
+    ai_result = analyze_ticket(
+        ticket.title,
+        ticket.details
+    )
+
     new_ticket = Ticket(
         id = ticket_id_counter,
         title = ticket.title,
         details = ticket.details,
         severity = ticket.severity,
+        category = ai_result["category"],
+        ai_summary = ai_result["ai_summary"],
+        recommended_steps = ai_result["recommended_steps"],
         status = "Open",
         created_at = datetime.now().isoformat()
     )
